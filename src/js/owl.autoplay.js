@@ -8,6 +8,11 @@
  */
 ;(function($, window, document, undefined) {
 
+	// A helper function to decide if we should pause when hovering.
+	function hoverPause() {
+		return this._core.settings.autoplayHoverPause && this._core.is('rotating');
+	}
+
 	/**
 	 * Creates the autoplay plugin.
 	 * @class The Autoplay Plugin
@@ -69,22 +74,22 @@
 				}
 			}, this),
 			'mouseover.owl.autoplay': $.proxy(function() {
-				if (this._core.settings.autoplayHoverPause && this._core.is('rotating')) {
+				if (hoverPause.call(this)) {
 					this.pause();
 				}
 			}, this),
 			'mouseleave.owl.autoplay': $.proxy(function() {
-				if (this._core.settings.autoplayHoverPause && this._core.is('rotating')) {
+				if (hoverPause.call(this)) {
 					this.play();
 				}
 			}, this),
 			'touchstart.owl.core': $.proxy(function() {
-				if (this._core.settings.autoplayHoverPause && this._core.is('rotating')) {
+				if (hoverPause.call(this)) {
 					this.pause();
 				}
 			}, this),
 			'touchend.owl.core': $.proxy(function() {
-				if (this._core.settings.autoplayHoverPause) {
+				if (hoverPause.call(this)) {
 					this.play();
 				}
 			}, this)
